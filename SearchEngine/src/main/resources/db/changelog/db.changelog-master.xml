@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="nikita.lozowik@google.com">
+        <sql>
+            CREATE TABLE `search_engine`.`site` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `status` ENUM('INDEXING', 'INDEXED', 'FAILED') NOT NULL,
+            `status_time` DATETIME NOT NULL,
+            `last_error` TEXT NULL,
+            `url` VARCHAR(255) NOT NULL,
+            `name` VARCHAR(255) NOT NULL,
+            PRIMARY KEY (`id`))
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        </sql>
+        <sql>
+            CREATE TABLE `search_engine`.`page` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `site_id` INT NOT NULL,
+            `path` TEXT NOT NULL,
+            `code` INT NOT NULL,
+            `title` TEXT NOT NULL,
+            `content` MEDIUMTEXT NOT NULL,
+            PRIMARY KEY (`id`),
+            INDEX `path_idx` (`path`(25) ASC) VISIBLE,
+            CONSTRAINT `page_site`
+            FOREIGN KEY (`site_id`)
+            REFERENCES `search_engine`.`site` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        </sql>
+        <sql>
+            CREATE TABLE `search_engine`.`lemma` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `site_id` INT NOT NULL,
+            `lemma` VARCHAR(255) NOT NULL,
+            `frequency` INT NOT NULL,
+            PRIMARY KEY (`id`),
+            INDEX `lemma_site_idx` (`lemma` ASC, `site_id` ASC) VISIBLE,
+            INDEX `site_idx` (`site_id` ASC) VISIBLE,
+            CONSTRAINT `site`
+            FOREIGN KEY (`site_id`)
+            REFERENCES `search_engine`.`site` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        </sql>
+        <sql>
+            CREATE TABLE `search_engine`.`index` (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `page_id` INT NOT NULL,
+            `lemma_id` INT NOT NULL,
+            `rank` FLOAT NOT NULL,
+            PRIMARY KEY (`id`),
+            INDEX `lemma_page_idx` (`lemma_id` ASC, `page_id` ASC) VISIBLE,
+            INDEX `page_idx` (`page_id` ASC) VISIBLE,
+            CONSTRAINT `page`
+            FOREIGN KEY (`page_id`)
+            REFERENCES `search_engine`.`page` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+            CONSTRAINT `lemma`
+            FOREIGN KEY (`lemma_id`)
+            REFERENCES `search_engine`.`lemma` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

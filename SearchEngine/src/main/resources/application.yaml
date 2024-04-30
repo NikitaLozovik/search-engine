@@ -1,0 +1,28 @@
+indexing-settings:
+  sites:
+    - url: https://skillbox.ru
+      name: Skillbox
+    - url: https://www.playback.ru
+      name: PlayBack.Ru
+    - url: https://www.svetlovka.ru
+      name: Svetlovka
+  userAgent: Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36
+  referrer: https://www.google.com
+  timeOut: 12000
+  delay: 300
+  threshold: 250
+  maxLemmaOccurrencePercentage: 0.7
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: skillbox
+    url: jdbc:mysql://localhost:3306/search_engine
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
