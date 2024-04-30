@@ -37,7 +37,7 @@ The application supports the following features:
 	- In Linux, it is located in the directory /home/<Your_User_Name>/.m2
 	- In macOS, it is located at /Users/<Your_User_Name>/.m2
 If the settings.xml file does not exist, create it and insert the following code:
-
+``` xml
 	<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
@@ -56,7 +56,7 @@ If the settings.xml file does not exist, create it and insert the following code
     	      </server>
   	   </servers>
 	</settings>
-
+```
 If the file already exists but does not contain the <servers> block, add only this block. If this block exists in the file, add the <server> block from the code snippet above inside it.In the <value> block, you'll find a unique access token. If you encounter a "401 Authorization Error" when trying to fetch dependencies, take the latest access token from the document at this link: https://docs.google.com/document/d/1rb0ysFBLQltgLTvmh-ebaZfJSI7VwlFlEYT9V5_aPjc
 3. Load all Maven dependencies.
 4. In the /src/main/resources/application.yaml file, configure the following:
