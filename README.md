@@ -57,13 +57,13 @@ If the settings.xml file does not exist, create it and insert the following code
   	   </servers>
 	</settings>
 ```
-If the file already exists but does not contain the <servers> block, add only this block. If this block exists in the file, add the <server> block from the code snippet above inside it.In the <value> block, you'll find a unique access token. If you encounter a "401 Authorization Error" when trying to fetch dependencies, take the latest access token from the document at this link: [Access Token Doc](https://docs.google.com/document/d/1rb0ysFBLQltgLTvmh-ebaZfJSI7VwlFlEYT9V5_aPjc)
-3. Load all Maven dependencies.
+If the file already exists but does not contain the <servers> block, add only this block. If this block exists in the file, add the <server> block from the code snippet above inside it.In the <value> block, you'll find a unique access token. If you encounter a "401 Authorization Error" when trying to fetch dependencies, take the latest access token from the document at this link: [Access Token Doc](https://docs.google.com/document/d/1rb0ysFBLQltgLTvmh-ebaZfJSI7VwlFlEYT9V5_aPjc)<br>
+3. Load all Maven dependencies.<br>
 4. In the /src/main/resources/application.yaml file, configure the following:
 For the database, specify the URL, username, and password (all tables will be automatically created using Liquibase).
-For indexing, specify userAgent, referrer, timeOut (waiting time for server response), delay (delay between requests to prevent blocking), maxLemmaOccurrencePercentage (coefficient of lemma repetition at which it is excluded from search).
-5. Run the Application.main() method.
-6. In your browser, navigate to "https://localhost:8080/".
+For indexing, specify userAgent, referrer, timeOut (waiting time for server response), delay (delay between requests to prevent blocking), maxLemmaOccurrencePercentage (coefficient of lemma repetition at which it is excluded from search).<br>
+5. Run the Application.main() method.<br>
+6. In your browser, navigate to "https://localhost:8080/".<br>
 
 ## How to Use
 
